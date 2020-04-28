@@ -1,0 +1,189 @@
+#include<stdio.h>
+#include<conio.h>
+
+int len(char x[])
+{
+int i;
+for(i=0;x[i]!=0;i++);
+return i;
+}
+
+ins(char a[],int d,int loc);
+del(char a[],char b[],int loc);
+
+loca(char a[],char c[],int b[]);
+//loc();
+
+
+
+
+void main()
+{
+
+int i,n=0,lena,lenc,lenx,loc,lenb,j,k=0,d,e;
+char a[200]={"the fastest fish is sword fish that fish"};
+char c[20]={"fish"};
+char x[20]={"tigers"};
+int b[30]={'\0'};
+
+clrscr();
+
+//printf("\n Enter Sentence :- ");
+//gets(a);
+//printf("\n Enter word to Search :- ");
+//gets(c);
+
+loca(a,c,b);
+for(e=0;b[e]!='\0';e++)
+printf("\n b  %d",b[e]-1);
+
+
+lena=len(a);
+lenc=len(c);
+lenx=len(x);
+
+
+for(i=0;b[i]!='\0';i++);
+lenb=i;
+
+
+if(lenc==lenx)
+{
+
+for(i=0;i<lenb;i++)
+{
+loc=b[i]-1;
+for(j=0;j<lenx;j++)
+a[loc+j]=x[j];
+
+}
+}
+
+d=0;
+
+if(lenc<lenx)                     // fish   tiger
+{
+
+for(i=0;i<lenb;i++)
+{
+
+loc=b[i]+d*i;
+d=lenx-lenb-1;
+
+ins(a,d,loc);
+
+
+}
+
+for(i=0;i<lenb;i++)
+{
+
+loca(a,c,b);
+for(e=0;b[e]!='\0';e++)
+printf("\n  a %d",b[e]-1);
+
+
+loc=b[i]-1;
+
+for(j=0;j<lenx;j++)
+{
+a[loc+j]=x[j];
+
+}
+
+}
+
+}					       //12 26 36
+
+
+printf("\n %s",a);
+
+getch();
+}
+
+
+
+loca(char a[],char c[],int b[])
+
+{
+
+int lena,lenc,i,j,n=0,k=0;
+
+lena=len(a);
+lenc=len(c);
+
+for(i=0;i<lena;i++)
+{
+	for(j=0;j<lenc;j++)
+
+	   if(a[i+j]==c[j])
+	   {
+	   n++;
+	   }
+
+	if(n==lenc)
+	{
+	b[k]=i+1;
+	k++;
+	}
+
+	n=0;
+}
+
+
+}
+
+
+ins(char a[],int d,int loc)
+{
+int temp,k,lena,lenb,i,j;
+
+lena=len(a);
+lenb=d;
+
+for(i=0;i<lenb;i++)
+{
+
+k=0;
+a[lena+1]='h';
+
+for(j=lena;loc<j;j--)       //abcdxyz          123
+{
+temp=a[lena+1-k];
+a[lena+1-k]=a[lena-k];
+a[lena-k]=temp;
+k++;
+
+}
+lena++;
+}
+printf("\n %s",a);
+
+}
+
+del(char a[],char b[],int loc)
+{
+int temp,k,lena,lenb,i,j;
+
+lena=len(a);
+lenb=len(b);
+
+for(i=0;i<lenb;i++)
+{
+
+k=0;
+
+for(j=loc;j<lena;j++)       //abcdhhhxyz          123
+{
+temp=a[loc+k];
+a[loc+k]=a[loc+1+k];
+a[loc+1+k]=temp;
+
+k++;
+
+}
+lena--;
+}
+printf("\n %s",a);
+
+}
